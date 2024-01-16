@@ -227,8 +227,8 @@ begin
 						
 						Write-Host ( $UserName  | fl  `
 						@{Label="Teams"; Expression = {  if( !$O365 -and !$EXO ) {  "SIP N/A (no O365 session)" }else { $_.EmailAddresses |  ?{ $_.ToString() -like "sip*" }   } } } ,`
-						#@{Label="RemoteRoutingAddress"; Expression = { if ( $_.RemoteRoutingAddress){ if ( $remotemailbox.RemoteRoutingAddress -like "*@msoit.mail.onmicrosoft.com")  { $_.RemoteRoutingAddress } else { Write-Host "NOT VALID RemoteRoutingAddress ! $($_.RemoteRoutingAddress) Must be @msoit.mail.onmicrosoft.com  " -ForegroundColor White -BackgroundColor Red	   } }  }    }, `
-						@{Label="RemoteRoutingAddress"; Expression = { if ( $_.RemoteRoutingAddress){ if ( $_.RemoteRoutingAddress -like "*@msoit.mail.onmicrosoft.com")  { $_.RemoteRoutingAddress } else { Write-Host "NOT VALID RemoteRoutingAddress ! $($_.RemoteRoutingAddress) Must be @msoit.mail.onmicrosoft.com  " -ForegroundColor White -BackgroundColor Red	   } }  }    }, `
+						#@{Label="RemoteRoutingAddress"; Expression = { if ( $_.RemoteRoutingAddress){ if ( $remotemailbox.RemoteRoutingAddress -like "*@XXXIt.mail.onmicrosoft.com")  { $_.RemoteRoutingAddress } else { Write-Host "NOT VALID RemoteRoutingAddress ! $($_.RemoteRoutingAddress) Must be @XXXIt.mail.onmicrosoft.com  " -ForegroundColor White -BackgroundColor Red	   } }  }    }, `
+						@{Label="RemoteRoutingAddress"; Expression = { if ( $_.RemoteRoutingAddress){ if ( $_.RemoteRoutingAddress -like "*@XXXIt.mail.onmicrosoft.com")  { $_.RemoteRoutingAddress } else { Write-Host "NOT VALID RemoteRoutingAddress ! $($_.RemoteRoutingAddress) Must be @XXXIt.mail.onmicrosoft.com  " -ForegroundColor White -BackgroundColor Red	   } }  }    }, `
 						EmailAddressPolicyEnabled `
 						| Out-String).Trim() -foregroundcolor Cyan 
 						
@@ -728,7 +728,7 @@ begin
 												
 								Write-Host ( $UserName  | fl  `
 								@{Label="Teams"; Expression = {  if( !$O365 -and !$EXO ) {  "SIP N/A (no O365 session)" }else { $_.EmailAddresses |  ?{ $_.ToString() -like "sip*" }   } } } ,`
-								@{Label="RemoteRoutingAddress"; Expression = { if ( $_.RemoteRoutingAddress){ if ( $remotemailbox.RemoteRoutingAddress -like "*@msoit.mail.onmicrosoft.com")  { $_.RemoteRoutingAddress } else { Write-Host "NOT VALID RemoteRoutingAddress ! $($_.RemoteRoutingAddress) Must be @msoit.mail.onmicrosoft.com  " -ForegroundColor White -BackgroundColor Red	   } }  }    }, `
+								@{Label="RemoteRoutingAddress"; Expression = { if ( $_.RemoteRoutingAddress){ if ( $remotemailbox.RemoteRoutingAddress -like "*@XXXIt.mail.onmicrosoft.com")  { $_.RemoteRoutingAddress } else { Write-Host "NOT VALID RemoteRoutingAddress ! $($_.RemoteRoutingAddress) Must be @XXXIt.mail.onmicrosoft.com  " -ForegroundColor White -BackgroundColor Red	   } }  }    }, `
 								EmailAddressPolicyEnabled, `
 								@{Label="OnPrem EmailAddressPolicyEnabled"; Expression = {  $remotemailbox.EmailAddressPolicyEnabled } }`
 								| Out-String).Trim() -foregroundcolor Cyan 
@@ -780,7 +780,7 @@ begin
 												
 								Write-Host ( $UserName  | fl  `
 								@{Label="Teams"; Expression = {  if( !$O365 -and !$EXO ) {  "SIP N/A (no O365 session)" }else { $_.EmailAddresses |  ?{ $_.ToString() -like "sip*" }   } } } ,`
-								@{Label="RemoteRoutingAddress"; Expression = { if ( $_.RemoteRoutingAddress){ if ( $remotemailbox.RemoteRoutingAddress -like "*@msoit.mail.onmicrosoft.com")  { $_.RemoteRoutingAddress } else { Write-Host "NOT VALID RemoteRoutingAddress ! $($_.RemoteRoutingAddress) Must be @msoit.mail.onmicrosoft.com  " -ForegroundColor White -BackgroundColor Red	   } }  }    } | Out-String).Trim() -foregroundcolor Cyan 
+								@{Label="RemoteRoutingAddress"; Expression = { if ( $_.RemoteRoutingAddress){ if ( $remotemailbox.RemoteRoutingAddress -like "*@XXXIt.mail.onmicrosoft.com")  { $_.RemoteRoutingAddress } else { Write-Host "NOT VALID RemoteRoutingAddress ! $($_.RemoteRoutingAddress) Must be @XXXIt.mail.onmicrosoft.com  " -ForegroundColor White -BackgroundColor Red	   } }  }    } | Out-String).Trim() -foregroundcolor Cyan 
 
 								Write-Host ""
 								
@@ -1333,13 +1333,13 @@ begin
 			{
 				if (  $Owner -like "*Domain Admins*")
 				{
-					$Creator =  $Owner.Replace("msoit\", "")
+					$Creator =  $Owner.Replace("XXXIt\", "")
 				}
 				else
 				{
 					$distinguishedname = $CustomADUser.distinguishedname
 								
-					$Owner = $Owner.Trim("MSOIT\")
+					$Owner = $Owner.Trim("XXXIt\")
 			
 					if ( $Owner  )
 					{
@@ -2982,7 +2982,7 @@ begin
 	function fOnPremBrokenSession ()
 	{
 		
-		$OnPremBrokenSessions = @( Get-PSSession | ?{ ($_.ComputerName -like "*.msoit.com" -or $_.ComputerName -like  "*online.lync.com*"  ) -and ( $_.State -ne "Opened" ) } )
+		$OnPremBrokenSessions = @( Get-PSSession | ?{ ($_.ComputerName -like "*.XXXIt.com" -or $_.ComputerName -like  "*online.lync.com*"  ) -and ( $_.State -ne "Opened" ) } )
 		
 			if ( $OnPremBrokenSessions )
 			{
